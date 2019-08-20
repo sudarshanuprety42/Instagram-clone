@@ -1,0 +1,65 @@
+
+<% flash.each do |name, msg| -%>
+<% if name=='error' %>
+    <%= content_tag :div, msg, class: "alert alert-danger" %>
+<% else %>
+    <%= content_tag :div, msg, class: "alert alert-success" %>
+<% end %>
+<% end -%>
+
+<div class="" style="width:50%;border:1px solid grey;margin:0 auto;margin-top:20px;padding:10px;border-radius:10px;">
+  <div class="" style="float:left;">
+    <%= link_to(image_tag(current_user.display_picture,style:'width:42px;height:42px;border-radius: 50%;object-fit: cover;margin:15px;'), {:controller => "instagram", :action => "currentuser" }) %>
+
+  </div>
+  <div class="" style="display:inline-block;margin-left:2px;font-size:15px;margin-top:22px;">
+    <span style="font-weight: 500;"><%= current_user.username %></span>
+  </div>
+<%= form_for current_user, :url => { :controller => "instagram", :action => "update_profile" }, :html => {:method => :post,style: "margin-top:40px !important;"} do |form|%>
+    <p>
+      <%= form.label :Fullname %><br>
+      <%= form.text_field :fullname,class:"form-control",:value => current_user.fullname %>
+    </p>
+    <p>
+      <%= form.label :Username %><br>
+      <%= form.text_field :username,class:"form-control",:value => current_user.username %>
+    </p>
+    <p>
+      <%= form.label :Bio %><br>
+      <%= form.text_area :bio,class:"form-control",:value => current_user.bio %>
+    </p>
+    <p>
+      <%= form.label :Email %><br>
+      <%= form.email_field :email,class:"form-control",:value => current_user.email %>
+    </p>
+    <p>
+      <% if current_user.gender=='prefer_not_to_say' %>
+      <%= form.radio_button :gender, 'prefer_not_to_say', :checked => true %>
+      <%= label :contactmethod_email, 'Prefer not to say' %>
+      <%= form.radio_button :gender, 'male' %>
+      <%= label :contactmethod_sms, 'Male' %>
+      <%= form.radio_button :gender, 'female' %>
+      <%= label :contactmethod_sms, 'Female' %>
+      <% elsif current_user.gender=='male' %>
+      <%= form.radio_button :gender, 'prefer_not_to_say' %>
+      <%= label :contactmethod_email, 'Prefer not to say' %>
+      <%= form.radio_button :gender, 'male', :checked => true %>
+      <%= label :contactmethod_sms, 'Male' %>
+      <%= form.radio_button :gender, 'female' %>
+      <%= label :contactmethod_sms, 'Female' %>
+      <% else %>
+      <%= form.radio_button :gender, 'prefer_not_to_say' %>
+      <%= label :contactmethod_email, 'Prefer not to say' %>
+      <%= form.radio_button :gender, 'male' %>
+      <%= label :contactmethod_sms, 'Male' %>
+      <%= form.radio_button :gender, 'female', :checked => true %>
+      <%= label :contactmethod_sms, 'Female' %>
+
+      <% end %>
+    </p>
+    <p>
+      <%= form.submit(class:"btn btn-primary") %>
+    </p>
+  <% end %>
+
+</div>

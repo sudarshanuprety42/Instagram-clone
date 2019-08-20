@@ -1,0 +1,51 @@
+<div class="" style="width:70%;">
+  <% if @flwr.nil? %>
+  <h2 style="margin-left:450px;margin-top:30px;">No Followers for <%= @user.fullname %></h2>
+  <% else %>
+  <h2 style="margin-left:450px;margin-top:30px;">Followers for <%= @user.fullname %></h2>
+  <div class="" style="margin-left:300px;">
+
+
+    <table style="width:90%;">
+
+
+    <% @flwr.each do |user| %>
+    <tr>
+      <td><a href="/instagram/show_user/<%= user.id %>" style="color: inherit;text-decoration: none;">
+
+        <div class="" style="display:inline;">
+          <%= image_tag(user.display_picture,style:'width:150px;height:150px;border-radius: 50%;object-fit: cover;margin:15px;') %>
+        </div>
+        <div class="" style="display:inline;margin-left:2px;font-size:40px;margin-top:22px;">
+          <%=user.username%>
+        </div>
+      </a>
+      </td>
+
+      <td style="padding-bottom: 17px;">
+        <% if current_user.id != user.id %>
+        <a href="/instagram/follow/<%= user.id %>" class= "btn btn-outline-success my-2 my-sm-0"
+        style="display:inline-block;font-size:20px;">
+
+        <% if @followings.include?(user.id) %>
+        Unfollow
+        <% else %>
+        Follow
+        <% end %>
+
+      </a>
+      <% end %>
+      </td>
+
+
+
+    <br>
+    <% end %>
+    </table>
+
+
+
+  </div>
+
+  <% end %>
+</div>

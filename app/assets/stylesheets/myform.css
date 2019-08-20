@@ -1,0 +1,15 @@
+.postform{
+  border: 1px solid #dbdbdb;
+  height: auto;
+  margin: auto 290px;
+  padding: 30px;
+  border-radius: 3px;
+  input[type='text']{
+    width: 100%;
+  }
+
+}
+.captioninput{
+  width: 100%;
+  height: 100px;
+}

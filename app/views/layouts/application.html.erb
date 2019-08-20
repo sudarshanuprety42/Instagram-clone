@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instagram</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+<link rel="shortcut icon" type="image/x-icon" href="/assets/titlelogo.png" />
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' %>
+  </head>
+
+  <body style="background-color:#fafafa !important;">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:white !important; border-bottom-style: solid;border-size:1px;border-color:#e0dede;border-width: thin;">
+  <a class="navbar-brand" href="<%= root_path %>">
+
+    <div style="width:22px;margin-left:250px;float:left;margin-top:6px;">
+      <img src="/assets/smalllogo.png" alt="" width="22px;">
+    </div>
+    <div style="background-color:#262626;height: 30px;width:1.5px;display:inline-block;margin-top:4px;margin-bottom:6px;margin-left:16px;margin-right:5px;">
+
+    </div>
+    <div style="width:107px;display:inline-block;margin-top:9px;">
+      <img src="/assets/biglogo.png" alt="" width="107px;" style="vertical-align:baseline;">
+    </div>
+  </a>
+
+<% if user_signed_in? %>
+
+
+
+<%= form_for :search, url: "/instagram/search_user", :html => {:classs => "form-inline",method: "get"} do |form| %>
+  <%= form.text_field :keyword , class: "form-control mr-sm-2",placeholder: "search", "aria-label":"Search",style: 'margin-left:160px;width: 220px; display: inline-block;height:50px;' %>
+  <%= form.submit(value: "Search", class: "btn btn-outline-success my-2 my-sm-0",style: 'display: inline;margin-bottom:5px;height: 50px;float:right;')  %>
+<% end  %>
+
+
+
+  <!-- <form class="form-inline" style="margin-left:160px;" action="/instagram/search_user" method="post">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> -->
+<% end %>
+
+<% if user_signed_in? %>
+  <div style="width:37px;margin-left:260px;float:left;margin-top:0px;">
+    <%# <%= link_to(image_tag("/assets/userlogo.png",size: "37x37", :alt => 'userlogo'), {:controller => "instagram", :action => "currentuser", :id => current_user.id }) %>
+
+    <%= link_to(image_tag("/assets/userlogo.png",size: "37x37", :alt => 'userlogo'), {:controller => "/instagram", :action => "currentuser" }) %>
+
+  </div>
+<% end %>
+
+
+
+</nav>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+
+
+    <%= yield %>
+  </body>
+</html>

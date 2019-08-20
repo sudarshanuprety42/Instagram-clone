@@ -1,0 +1,134 @@
+
+
+
+
+<%= stylesheet_link_tag "myform" %>
+
+<% flash.each do |name, msg| -%>
+<% if name=='error' %>
+    <%= content_tag :div, msg, class: "alert alert-danger" %>
+<% else %>
+    <%= content_tag :div, msg, class: "alert alert-success" %>
+<% end %>
+<% end -%>
+
+<% if flash[:just_signed_up] %>
+<div class="alert alert-success" role="alert">
+<p class="welcome">Welcome to our site!</p>
+</div>
+<% end %>
+
+
+
+
+
+<%= form_with model: @post,scope: :post, local: true,url: {action: "create",controller:"posts"},html: {class: "postform md-form", style: "margin-top:20px;"} do |f| %>
+<div class="" style="float:right;margin-top: -20px;">
+  <%= link_to(image_tag(current_user.display_picture,style:'width:42px;height:42px;border-radius: 50%;object-fit: cover;margin:15px;'), {:controller => "instagram", :action => "currentuser" }) %>
+</div>
+<a href="/instagram/show_user/<%= current_user.id %>" style="float:right;margin-top: -20px;">
+<div class="" style="display:inline-block;margin-left:2px;font-size:15px;margin-top:22px;">
+  <span style="font-weight: 500;color:#212529;"><%= current_user.username %></span>
+</div>
+</a>
+<h3 style="">Post to Instagram</h3>
+
+
+
+  <div class="form-group">
+    <%= f.text_field :description, class: 'captioninput', autocomplete: "description" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :user_id, value: current_user.id, class:'d-none'%>
+  </div>
+  <div class="form-group">
+    <%= f.file_field :images, multiple:true %>
+  </div>
+
+  <br>
+  <div class="text-center">
+    <%= f.submit 'Upload', class: 'btn btn-outline-success my-2 my-sm-0' %>
+  </div>
+<% end %>
+<div style="margin-left:350px;margin-top:20px;">
+
+<% if !@feed.nil? %>
+<% count=1 %>
+<% @feed.each do |post| %>
+
+  <div class="" style="width: 43rem;border-style: groove;border-width: 2px;margin-left:60px;border-radius: 1%">
+    <div class="" style="float:left;">
+      <a href="/instagram/show_user/<%= post.user.id %>">
+        <div class="" style="display:inline;">
+          <%=image_tag(post.user.display_picture,style:'width:42px;height:42px;border-radius: 50%;object-fit: cover;margin:15px;') %>
+        </div>
+
+      </a>
+
+
+
+
+    </div>
+    <a href="/instagram/show_user/<%= post.user.id %>">
+    <div class="" style="display:inline-block;margin-left:2px;font-size:15px;margin-top:22px;">
+      <span style="font-weight: 500;color:#212529;"><%= post.user.username %></span>
+    </div>
+    </a>
+
+    <div id="main<%= count  %>" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% firsttimage=true %>
+    <% post.images.each do |image| %>
+    <% if firsttimage %>
+      <div class="carousel-item active">
+        <%=  image_tag(image,:class => "d-block w-100") %>
+      </div>
+      <% firsttimage=false %>
+    <% else %>
+      <div class="carousel-item">
+        <%=  image_tag(image,:class => "d-block w-100") %>
+      </div>
+    <% end %>
+    <% end %>
+    </div>
+    <% if post.images.count != 1 %>
+    <a class="carousel-control-prev" href="#main<%= count  %>" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#main<%= count  %>" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <% end %>
+  </div>
+    <div class="card-body" style="height:50px;">
+      <p class="card-text"><span style="font-weight:600;"><%= post.user.username %> </span>
+        <span style="font-size:14px;"><%= post.description %></span></p>
+    </div>
+    <% if post.comments.count>0 %>
+    <div class="card-body" style="height:50px;">
+      <p class="card-text"><span style="font-weight:600;"><%= User.find(post.comments[0].commenter).username %> </span>
+        <span style="font-size:14px;"><%= post.comments[0].body %>
+          <% if post.comments.count>1 %>
+          &nbsp  &nbsp  &nbsp  &nbsp  &nbsp
+            <%= link_to 'Show more', post_path(post),:style=>"color:grey;" %>
+          <% end %>
+        </span></p>
+    </div>
+
+    <% end %>
+
+    <%= form_with(model: [ post, post.comments.build ], local: true) do |form| %>
+
+      <%= form.text_field :body,class:"form-control",placeholder:"Add a comment",style:"display:inline;width:38rem;text-indent: 30px;height:50px;margin-left:-1px;margin-bottom:-1px;" %>
+      <%= form.submit(class:"btn btn-outline-success my-2 my-sm-0",style:"display:inline-block;height:50px;width:4.8rem;float:right;",value:"Post") %>
+
+    <% end %>
+
+  </div>
+  <br><br>
+  <% count+=1; %>
+<% end %>
+<% end %>
+</div>

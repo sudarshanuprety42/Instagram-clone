@@ -1,0 +1,38 @@
+<% flash.each do |name, msg| -%>
+<% if name=='alert' %>
+    <%= content_tag :div, msg, class: "alert alert-danger" %>
+<% else %>
+    <%= content_tag :div, msg, class: "alert alert-success" %>
+<% end %>
+<% end -%>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
+<div style="width:380px;margin:0 auto;background-color:white;border: 1px solid #e6e6e6;margin-top:40px;">
+
+  <img src="/assets/biglogo.png" alt="" width="180px;" style="vertical-align:baseline;margin-left:100px;margin-top:30px;">
+
+  <%= f.email_field :email, autofocus: true, autocomplete: "email",:style=>"margin-left:50px;width:280px;
+  height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+  border-radius:2px;text-indent: 10px;",:placeholder=>"Email" %>
+
+  <%= f.password_field :password, autocomplete: "current-password",:style=>"margin-left:50px;width:280px;
+  height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+  border-radius:2px;text-indent: 10px;",:placeholder=>"Password" %>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="field" style="margin-left:50px;visibility: hidden;">
+      <%= f.check_box :remember_me,checked:true%>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="actions" style="margin-bottom:20px;">
+
+    <%= f.submit "Login",class:"btn btn-outline-success my-2 my-sm-0",:style=>"margin-left:50px;width:280px;
+    height:40px;" %>
+  </div>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

@@ -1,0 +1,46 @@
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
+
+    <div style="width:380px;margin:0 auto;background-color:white;border: 1px solid #e6e6e6;margin-top:13px;">
+
+      <img src="/assets/biglogo.png" alt="" width="180px;" style="vertical-align:baseline;margin-left:100px;margin-top:30px;">
+      <p style="font-size:18px;font-weight:600;color:#999;width:300px;text-align:center;margin-left:40px;">Sign up to see photos and videos from your friends.</p>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+      border-radius:2px;text-indent: 10px;",:placeholder=>"Email" %>
+
+
+      <%= f.text_field :fullname, autofocus: true, autocomplete: "fullname",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+      border-radius:2px;text-indent: 10px;",:placeholder=>"Full name" %>
+
+
+      <%= f.text_field :username, autofocus: true, autocomplete: "username",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+      border-radius:2px;text-indent: 10px;",:placeholder=>"Username" %>
+
+      <label for="" style="margin-left:50px;">Display picture</label>
+      <%= f.file_field :display_picture ,:style=>"margin-left:50px;"%>
+
+
+      <%= f.password_field :password, autocomplete: "new-password",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+      border-radius:2px;text-indent: 10px;",:placeholder=>"Password" %>
+
+
+      <%= f.password_field :password_confirmation, autocomplete: "new-password",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;background-color:#fafafa;border-width:1px;border-style:solid;border-color:grey;
+      border-radius:2px;text-indent: 10px;",:placeholder=>"Confirm password" %>
+
+<br><br>
+    <div class="actions" style="margin-bottom:10px;">
+      <%= f.submit "Sign up",class:"btn btn-outline-success my-2 my-sm-0",:style=>"margin-left:50px;width:280px;
+      height:40px;margin-top:10px;" %>
+    </div>
+    </div>
+
+<% end %>
+
+<%= render "devise/shared/links" %>
+<br><br>
