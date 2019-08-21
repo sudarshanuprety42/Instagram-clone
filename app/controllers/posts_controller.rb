@@ -9,22 +9,13 @@ class PostsController < ApplicationController
     else
       flash[:error] = "Invalid post"
       redirect_to root_path
-      #render plain: params[:post].inspect
-      #render :template => 'instagram/index'
 
     end
 
-  #For inserting to db without form
-  # @article = Article.new(:title=>"no form",:text=>"success")
-  # @article.save
-  # redirect_to articles_path
   end
 
   def destroy
-    # @user = Article.find(params[:article_id])
-    # @comment = @article.comments.find(params[:id])
-    # @comment.destroy
-    # redirect_to article_path(@article)
+
     post = Post.find(delete_params[:id])
     post.destroy
     @followings = current_user.followings.pluck(:flwg).to_a

@@ -110,11 +110,7 @@ class InstagramController < ApplicationController
     @followings = current_user.followings.pluck(:flwg).to_a
     @followers = current_user.followers.pluck(:flwr).to_a
     @kw = search_params[:keyword]
-    # @users =  User.where("username LIKE ?", "%#{search_params[:keyword]}%")
-    # @users1 =  User.where("fullname LIKE ?", "%#{search_params[:keyword]}%")
     @users = User.where("username LIKE :search OR fullname LIKE :search", search: "%#{@kw}%").where.not(email: current_user.email)
-    # @users.merge(@users1)
-    # @users.delete(current_user)
 
   end
 
